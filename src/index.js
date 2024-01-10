@@ -1,27 +1,20 @@
 const express = require('express');
 const dotenv = require('dotenv');
+const userRouter = require('./routes/users');                       // Подключение динамического роута
+const app = express();                                              // Подключение Express
 
 dotenv.config();
 
-const app = express();
-
-const {
+const {                                                             // Настройка порта
     PORT = 3005,
     API_URL = 'http://127.0.0.1', 
 } = process.env;
 
-app.get('/', (request, response) => {
-    response.status = 200;
-    response.statusMessage = 'OK';
-    response.header = 'Content-Type: text/plain';
-    response.setHeader('Content-Type', 'text/plain');
-    response.write('Hello, world!');
-    response.end();
-})
+app.use(userRouter);                                                // Слушает роуты
 
-app.listen(PORT, () => {
+app.listen(PORT, () => {                                            // Слушаем порт
     console.log(`Сервер запущен по адресу ${API_URL}:${PORT}`)
-})
+});
 
 
 
