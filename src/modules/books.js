@@ -1,9 +1,20 @@
-const fs = require('fs');
-const path = require('path');
+const mongoose = require('mongoose');
 
-const getUsers = () => {
-    const filePath = path.join(__dirname, '../data/books.json')
-    return fs.readFileSync(filePath)
-}
+const bookSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    required: true,
+    minlength: 2,
+  },
+  author: {
+    type: String,
+    required: true,
+    minlength: 2,
+  },
+  date: {
+    type: Number,
+    required: true,
+  },
+});
 
-module.exports = getUsers;
+module.exports = mongoose.model('books', bookSchema);
